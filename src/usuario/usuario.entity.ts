@@ -11,7 +11,7 @@ export class UsuarioEntity {
     nombre: string;
     
     @Column()
-    telefono: string;//int
+    telefono: number;//int
 
     @ManyToOne(() => FotoEntity, foto => foto.usuarios)
     foto: FotoEntity;

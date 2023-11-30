@@ -9,7 +9,7 @@ export class RedsocialEntity {
     nombre: string;
     
     @Column()
-    slogan: string;//int
+    slogan: string;
 
     @OneToMany(() => UsuarioEntity, usuario => usuario.redsocial)
      usuarios: UsuarioEntity[];
