@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AlbumEntity } from './album.entity';
-import { BusinessLogicException , BusinessError} from '../shared/interceptors/business-errors';
-import { BusinessErrorsInterceptor } from 'src/shared/interceptors/business-errors/business-errors.interceptor';
+import { FotoEntity } from 'src/foto/foto.entity';
+import { BusinessError } from 'src/shared/errors/business-errors';
+import { BusinessLogicException } from 'src/shared/errors/business-errors';
 
 
 @Injectable()
@@ -17,7 +18,7 @@ export class AlbumService {
         return await this.albumRepository.find({ relations: ["fotos"] });
     }
 
-    async findOne(id: string): Promise<AlbumEntity> {
+    async findAlbumById(id: string): Promise<AlbumEntity> {
         console.log('Provided ID:', id);
 
         const album: AlbumEntity = await this.albumRepository.findOne( {where:{id}, relations: ["fotos"] });
@@ -34,18 +35,19 @@ export class AlbumService {
 
     async deleteAlbum(id: string){
         const album: AlbumEntity = await this.albumRepository.findOne( {where:{id} });
-        if (!album) 
+        if (!album || !album.fotos) 
             throw new BusinessLogicException("The album with the given id was not found", BusinessError.NOT_FOUND);
         return await this.albumRepository.remove(album);
     }
 
-    async findAlbumByID(id: string){
 
-
-    }
-
-    async addPhotoToAlbum(id: string){
-        
+    async addPhotoToAlbum(album: AlbumEntity, foto: FotoEntity){
+        if (!album.fotos){
+            album.fotos = [foto]
+        }
+        else{
+            album.fotos.push(foto)
+        }
     }
 
 
