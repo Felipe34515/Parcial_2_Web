@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, OneToMany, ManyToMany , JoinTable} from 'typeorm';
-import { FotoEntity } from 'src/foto/foto.entity';
-import { RedsocialEntity } from 'src/redsocial/redsocial.entity';
+import { FotoEntity } from '../foto/foto.entity';
+import { RedsocialEntity } from '../redsocial/redsocial.entity';
 
 export class UsuarioEntity {
 

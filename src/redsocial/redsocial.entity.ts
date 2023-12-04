@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToMany , JoinTable} from 'typeorm';
-import { UsuarioEntity } from 'src/usuario/usuario.entity';
+import { UsuarioEntity } from '../usuario/usuario.entity';
 export class RedsocialEntity {
 
     @PrimaryGeneratedColumn('uuid')
