@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany,ManyToOne,  ManyToMany , JoinTable} from 'typeorm';
-import { UsuarioEntity } from '../usuario/usuario.entity';
 import { AlbumEntity } from '../album/album.entity';
+import { UsuarioEntity } from '../usuario/usuario.entity';
+
 @Entity()
 export class FotoEntity {
 
@@ -19,9 +20,10 @@ export class FotoEntity {
     @Column()
     fecha: Date;
 
-    @OneToMany(()=> UsuarioEntity, usuario => usuario.foto)
-    usuarios: UsuarioEntity[]
 
     @ManyToOne(() => AlbumEntity, album => album.fotos)
     album: AlbumEntity;
+
+    @ManyToOne(()=> UsuarioEntity, usuario=> usuario.fotos)
+    usuario: UsuarioEntity;
 }

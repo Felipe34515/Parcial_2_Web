@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { FotoEntity } from './foto.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BusinessLogicException } from 'src/shared/errors/business-errors';
-import { BusinessError } from 'src/shared/errors/business-errors';
+import { BusinessLogicException } from '../shared/errors/business-errors';
+import { BusinessError } from '../shared/errors/business-errors';
 
 @Injectable()
 export class FotoService {
@@ -20,7 +20,7 @@ export class FotoService {
     }
 
     async findAll(): Promise<FotoEntity[]> {
-        return await this.fotoRepository.find({ relations: ["fotos"] });
+        return await this.fotoRepository.find();
     }
 
     async findFotoById(id: string): Promise<FotoEntity> {

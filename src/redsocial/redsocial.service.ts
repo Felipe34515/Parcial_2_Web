@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { RedsocialEntity } from './redsocial.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { BusinessLogicException } from 'src/shared/errors/business-errors';
-import { BusinessError } from 'src/shared/errors/business-errors';
+import { BusinessLogicException } from '../shared/errors/business-errors';
+import { BusinessError } from '../shared/errors/business-errors';
 @Injectable()
 export class RedsocialService {
     constructor(
@@ -13,7 +13,7 @@ export class RedsocialService {
 
     async createRedsocial(redsocial: RedsocialEntity): Promise<RedsocialEntity> {
         if (!redsocial.slogan || redsocial.slogan.length < 20)
-            throw new BusinessLogicException("The redsocial name and date are required", BusinessError.PRECONDITION_FAILED);
+            throw new BusinessLogicException("The redsocial dosent have the requirements", BusinessError.PRECONDITION_FAILED);
         return await this.redsocialRepository.save(redsocial);
     }
 

@@ -1,7 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, OneToMany, ManyToMany , JoinTable} from 'typeorm';
-import { FotoEntity } from '../foto/foto.entity';
 import { RedsocialEntity } from '../redsocial/redsocial.entity';
+import { FotoEntity } from '../foto/foto.entity';
 
+@Entity()
 export class UsuarioEntity {
 
     @PrimaryGeneratedColumn('uuid')
@@ -11,11 +12,13 @@ export class UsuarioEntity {
     nombre: string;
     
     @Column()
-    telefono: number;//int
+    telefono: string;//int
 
-    @ManyToOne(() => FotoEntity, foto => foto.usuarios)
-    foto: FotoEntity;
-
-    @ManyToOne(() => RedsocialEntity, redsocial => redsocial.usuarios)
+     @ManyToOne(() => RedsocialEntity, redsocial => redsocial.usuarios)
     redsocial: RedsocialEntity;
+
+    @OneToMany(()=> FotoEntity, foto => foto.usuario)
+    fotos: FotoEntity[];
+
+ 
 }
